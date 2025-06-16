@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - Questões Policiais do Miguel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --cor-primaria: #003b4c;
+      --cor-secundaria: #ffffff;
+      --cor-clara: #f9f9f9;
+      --cor-texto: #222;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--cor-clara);
+      color: var(--cor-texto);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: var(--cor-secundaria);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 380px;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--cor-primaria);
+      margin-bottom: 1.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      background-color: var(--cor-primaria);
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #005566;
+    }
+
+    .erro {
+      color: red;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Questões Policiais do Miguel</h2>
+    <div class="erro" id="erroLogin"></div>
+    <input type="text" id="usuario" placeholder="Usuário" />
+    <input type="password" id="senha" placeholder="Senha" />
+    <button onclick="fazerLogin()">Entrar</button>
+    <footer>Desenvolvido por Miguel Silva · "Disciplina é o caminho mais curto até o sucesso."</footer>
+  </div>
+
+  <script>
+    const usuarios = [
+      { usuario: "miguel", senha: "1234" },
+      { usuario: "joao", senha: "abcd" },
+      { usuario: "admin", senha: "admin" }
+    ];
+
+    function fazerLogin() {
+      const user = document.getElementById("usuario").value.trim();
+      const pass = document.getElementById("senha").value.trim();
+      const erroEl = document.getElementById("erroLogin");
+
+      const encontrado = usuarios.find(u => u.usuario === user && u.senha === pass);
+
+      if (encontrado) {
+        localStorage.setItem("usuarioLogado", user);
+        window.location.href = "comentarios-ranking.html";
+      } else {
+        erroEl.innerText = "Usuário ou senha incorretos.";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel Admin | Questões Policiais do Miguel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --azul-petroleo: #003b4c;
+      --azul-claro: #007b9e;
+      --fundo-claro: #f4f4f4;
+      --fundo-escuro: #1e1e1e;
+      --texto-claro: #ffffff;
+      --texto-escuro: #000000;
+      --cinza-claro: #dcdcdc;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--fundo-claro);
+      color: var(--texto-escuro);
+      transition: all 0.3s ease;
+    }
+
+    body.dark {
+      background: var(--fundo-escuro);
+      color: var(--texto-claro);
+    }
+
+    header {
+      background: var(--azul-petroleo);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .card {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    body.dark .card {
+      background: #2e2e2e;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--azul-petroleo);
+    }
+
+    button {
+      padding: 10px 20px;
+      background: var(--azul-petroleo);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: var(--azul-claro);
+    }
+
+    .theme-toggle {
+      text-align: right;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    body.dark footer {
+      color: #ccc;
+    }
+
+    canvas {
+      width: 100% !important;
+      max-width: 800px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      padding: 6px 0;
+      border-bottom: 1px solid var(--cinza-claro);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Painel Administrativo</h1>
+    <p>Bem-vindo, Miguel</p>
+  </header>
+
+  <div class="container">
+
+    <div class="theme-toggle">
+      <button onclick="toggleTheme()">🌙 Alternar tema</button>
+    </div>
+
+    <div class="card">
+      <h3>Estatísticas</h3>
+      <p>Total de questões: <strong id="totalQuestoes">0</strong></p>
+      <canvas id="grafico"></canvas>
+    </div>
+
+    <div class="card">
+      <h3>Ranking</h3>
+      <ul id="ranking">
+        <li>João - 82%</li>
+        <li>Ana - 76%</li>
+        <li>Miguel - 74%</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Gerenciar Questões</h3>
+      <p>Cadastre, edite e exclua questões diretamente pelo painel.</p>
+      <button onclick="window.location.href='crud.html'">Acessar CRUD</button>
+    </div>
+
+  </div>
+
+  <footer>
+    "Disciplina é o caminho mais curto até o topo." – Desenvolvido por Miguel Silva
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
+
+    // Mock de total de questões e gráfico
+    document.getElementById("totalQuestoes").innerText = 112;
+
+    const ctx = document.getElementById('grafico').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Português', 'Penal', 'Processo Penal', 'ADM', 'Lógica', 'Leis Especiais'],
+        datasets: [{
+          label: 'Acertos por matéria (%)',
+          data: [85, 78, 67, 59, 72, 64],
+          backgroundColor: 'rgba(0, 123, 158, 0.6)',
+          borderColor: 'rgba(0, 123, 158, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

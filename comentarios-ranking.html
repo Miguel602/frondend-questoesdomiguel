@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Comentários e Ranking | Questões Policiais do Miguel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --azul-petroleo: #003b4c;
+      --azul-claro: #009ec3;
+      --cinza-claro: #f2f2f2;
+      --fundo-escuro: #121212;
+      --texto-claro: #fff;
+      --texto-escuro: #000;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--cinza-claro);
+      margin: 0;
+      padding: 0;
+      color: var(--texto-escuro);
+      transition: 0.3s;
+    }
+
+    body.dark {
+      background: var(--fundo-escuro);
+      color: var(--texto-claro);
+    }
+
+    header {
+      background: var(--azul-petroleo);
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    body.dark .card {
+      background: #1e1e1e;
+    }
+
+    .comentarios {
+      margin-top: 1rem;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      resize: vertical;
+    }
+
+    button {
+      background: var(--azul-petroleo);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--azul-claro);
+    }
+
+    .comentario {
+      background: #f9f9f9;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: 5px;
+    }
+
+    body.dark .comentario {
+      background: #2a2a2a;
+    }
+
+    .ranking {
+      margin-top: 2rem;
+    }
+
+    .ranking-bar {
+      height: 20px;
+      border-radius: 5px;
+      background: var(--azul-petroleo);
+      color: white;
+      text-align: center;
+      font-size: 0.8rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .theme-toggle {
+      text-align: right;
+      margin-top: -1rem;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 2rem;
+    }
+
+    body.dark footer {
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Comentários e Ranking</h1>
+  </header>
+
+  <div class="container">
+
+    <div class="theme-toggle">
+      <button onclick="toggleTheme()">🌙 Tema</button>
+    </div>
+
+    <div class="card">
+      <h2>Questão 1</h2>
+      <p><strong>Banca:</strong> IADES | <strong>Órgão:</strong> PCDF | <strong>Ano:</strong> 2021</p>
+      <p>Assinale a alternativa correta quanto ao emprego da vírgula:</p>
+      <ul>
+        <li>A) Ele saiu, e voltou logo depois.</li>
+        <li>B) Ele saiu e, voltou logo depois.</li>
+        <li>C) Ele, saiu e voltou logo depois.</li>
+        <li>D) Ele saiu e voltou, logo depois.</li>
+        <li>E) Ele saiu e voltou logo, depois.</li>
+      </ul>
+
+      <h3>Comentários</h3>
+      <div class="comentarios" id="comentarios"></div>
+      <textarea id="comentarioTexto" placeholder="Escreva seu comentário..."></textarea>
+      <button onclick="adicionarComentario()">Enviar Comentário</button>
+
+      <div class="ranking">
+        <h3>Ranking de Acertos</h3>
+        <div>
+          <div class="ranking-bar" style="width: 70%;">A - 70%</div>
+          <div class="ranking-bar" style="width: 10%; background: #999;">B - 10%</div>
+          <div class="ranking-bar" style="width: 5%; background: #999;">C - 5%</div>
+          <div class="ranking-bar" style="width: 10%; background: #999;">D - 10%</div>
+          <div class="ranking-bar" style="width: 5%; background: #999;">E - 5%</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    "A constância supera o talento." – Desenvolvido por Miguel Silva
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
+
+    function adicionarComentario() {
+      const texto = document.getElementById('comentarioTexto').value.trim();
+      if (!texto) return;
+
+      const div = document.createElement('div');
+      div.className = 'comentario';
+      div.innerText = texto;
+
+      document.getElementById('comentarios').appendChild(div);
+      document.getElementById('comentarioTexto').value = '';
+    }
+  </script>
+
+</body>
+</html>
