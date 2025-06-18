@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gerenciar Questões | Questões Policiais do Miguel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --azul-petroleo: #003b4c;
+      --azul-claro: #007b9e;
+      --fundo-claro: #fdfdfd;
+      --fundo-escuro: #1e1e1e;
+      --texto-claro: #ffffff;
+      --texto-escuro: #000000;
+      --cinza: #ccc;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: var(--fundo-claro);
+      color: var(--texto-escuro);
+      transition: 0.3s ease;
+    }
+
+    body.dark {
+      background: var(--fundo-escuro);
+      color: var(--texto-claro);
+    }
+
+    header {
+      background-color: var(--azul-petroleo);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .form-card, .list-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    body.dark .form-card, body.dark .list-card {
+      background: #2e2e2e;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--azul-petroleo);
+    }
+
+    label {
+      display: block;
+      margin: 0.5rem 0 0.3rem;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid var(--cinza);
+      border-radius: 5px;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      padding: 8px 16px;
+      background: var(--azul-petroleo);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--azul-claro);
+    }
+
+    .questao {
+      border-bottom: 1px solid var(--cinza);
+      padding: 1rem 0;
+    }
+
+    .acoes button {
+      margin-right: 8px;
+    }
+
+    .theme-toggle {
+      text-align: right;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+      color: #777;
+    }
+
+    body.dark footer {
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Gerenciar Questões</h1>
+  </header>
+
+  <div class="container">
+
+    <div class="theme-toggle">
+      <button onclick="toggleTheme()">🌙 Alternar Tema</button>
+    </div>
+
+    <div class="form-card">
+      <h2>Cadastrar Nova Questão</h2>
+      <label for="enunciado">Enunciado</label>
+      <textarea id="enunciado" rows="3"></textarea>
+
+      <label for="alternativas">Alternativas (separadas por |)</label>
+      <input type="text" id="alternativas" placeholder="Ex: A|B|C|D|E">
+
+      <label for="correta">Alternativa Correta (A, B, C, D, E)</label>
+      <input type="text" id="correta">
+
+      <label for="banca">Banca</label>
+      <input type="text" id="banca">
+
+      <label for="orgao">Órgão</label>
+      <input type="text" id="orgao">
+
+      <label for="ano">Ano</label>
+      <input type="text" id="ano">
+
+      <button onclick="adicionarQuestao()">Salvar Questão</button>
+    </div>
+
+    <div class="list-card">
+      <h2>Questões Cadastradas</h2>
+      <div id="listaQuestoes"></div>
+    </div>
+
+  </div>
+
+  <footer>
+    "Disciplina é o caminho mais curto até o topo." – Desenvolvido por Miguel Silva
+  </footer>
+
+  <script>
+    const listaQuestoes = [];
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
+
+    function adicionarQuestao() {
+      const enunciado = document.getElementById('enunciado').value.trim();
+      const alternativas = document.getElementById('alternativas').value.trim().split('|');
+      const correta = document.getElementById('correta').value.trim().toUpperCase();
+      const banca = document.getElementById('banca').value.trim();
+      const orgao = document.getElementById('orgao').value.trim();
+      const ano = document.getElementById('ano').value.trim();
+
+      if (!enunciado || alternativas.length < 2 || !correta) {
+        alert('Preencha todos os campos corretamente.');
+        return;
+      }
+
+      listaQuestoes.push({ enunciado, alternativas, correta, banca, orgao, ano });
+      renderizarLista();
+      limparCampos();
+    }
+
+    function renderizarLista() {
+      const div = document.getElementById('listaQuestoes');
+      div.innerHTML = '';
+
+      listaQuestoes.forEach((q, i) => {
+        const bloco = document.createElement('div');
+        bloco.className = 'questao';
+        bloco.innerHTML = `
+          <strong>${i + 1}. ${q.enunciado}</strong><br>
+          <em>Banca:</em> ${q.banca} | <em>Órgão:</em> ${q.orgao} | <em>Ano:</em> ${q.ano}<br>
+          <em>Alternativas:</em> ${q.alternativas.join(', ')}<br>
+          <em>Correta:</em> ${q.correta}<br>
+          <div class="acoes">
+            <button onclick="editar(${i})">Editar</button>
+            <button onclick="remover(${i})">Remover</button>
+          </div>
+        `;
+        div.appendChild(bloco);
+      });
+    }
+
+    function remover(index) {
+      if (confirm('Deseja remover esta questão?')) {
+        listaQuestoes.splice(index, 1);
+        renderizarLista();
+      }
+    }
+
+    function editar(index) {
+      const q = listaQuestoes[index];
+      document.getElementById('enunciado').value = q.enunciado;
+      document.getElementById('alternativas').value = q.alternativas.join('|');
+      document.getElementById('correta').value = q.correta;
+      document.getElementById('banca').value = q.banca;
+      document.getElementById('orgao').value = q.orgao;
+      document.getElementById('ano').value = q.ano;
+
+      listaQuestoes.splice(index, 1);
+      renderizarLista();
+    }
+
+    function limparCampos() {
+      document.getElementById('enunciado').value = '';
+      document.getElementById('alternativas').value = '';
+      document.getElementById('correta').value = '';
+      document.getElementById('banca').value = '';
+      document.getElementById('orgao').value = '';
+      document.getElementById('ano').value = '';
+    }
+  </script>
+
+</body>
+</html>

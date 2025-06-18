@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel - Questões do Miguel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="painel-container">
+    <h1>Painel Administrativo</h1>
+    <button id="logoutBtn">Sair</button>
+
+    <h2>Questões</h2>
+    <div id="questoesList"></div>
+
+    <h2>Adicionar Nova Questão</h2>
+    <form id="addQuestionForm">
+      <textarea id="questionText" placeholder="Texto da questão" required></textarea>
+      <input type="text" id="alternativaA" placeholder="Alternativa A" required/>
+      <input type="text" id="alternativaB" placeholder="Alternativa B" required/>
+      <input type="text" id="alternativaC" placeholder="Alternativa C" required/>
+      <input type="text" id="alternativaD" placeholder="Alternativa D" required/>
+      <input type="text" id="correta" placeholder="Alternativa Correta (A, B, C, D)" required/>
+      <button type="submit">Adicionar Questão</button>
+    </form>
+
+    <p id="addError" class="error"></p>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/painel.js"></script>
+</body>
+</html>

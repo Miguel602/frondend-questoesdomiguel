@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Painel Admin - Questões do Miguel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --azul-petroleo: #003b4c;
+      --azul-claro: #e6f1f3;
+      --fundo-claro: #fdfdfd;
+      --texto: #222;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--fundo-claro);
+      color: var(--texto);
+    }
+
+    header {
+      background-color: var(--azul-petroleo);
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    main {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    section {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--azul-petroleo);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    li:last-child {
+      border-bottom: none;
+    }
+
+    .comentario strong {
+      color: var(--azul-petroleo);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>Painel Administrativo - Questões Policiais do Miguel</header>
+
+  <main>
+    <section>
+      <h2>Usuários Cadastrados</h2>
+      <ul id="lista-usuarios">
+        <li><strong>miguel</strong> (admin)</li>
+        <li>joao</li>
+        <li>ana_candidata</li>
+        <li>ribeiro</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Comentários por Questão</h2>
+      <ul id="lista-comentarios">
+        <li class="comentario"><strong>miguel</strong>: Essa questão foi anulada em 2023.</li>
+        <li class="comentario"><strong>joao</strong>: Achei essa alternativa confusa.</li>
+        <li class="comentario"><strong>ana_candidata</strong>: Muito boa explicação!</li>
+        <li class="comentario"><strong>ribeiro</strong>: Gabarito atualizado na nova banca.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Desenvolvido por Miguel Silva · “Persistência é o caminho do êxito.”
+  </footer>
+</body>
+</html>
