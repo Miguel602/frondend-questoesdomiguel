@@ -1,26 +1,31 @@
-document.getElementById('loginForm').addEventListener('submit', async function (e) {
+// public/login.js
+
+const API_URL = 'https://backendquestoes.onrender.com';
+
+document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
   try {
-    const response = await fetch(`${API_BASE_URL}/login`, {
+    const response = await fetch(`${API_URL}/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
     });
 
     const data = await response.json();
 
     if (response.ok) {
-      saveToken(data.token);
-      window.location.href = 'painel.html';
+      document.getElementById('result').innerText = `Token: ${data.token}`;
+      localStorage.setItem('token', data.token);
     } else {
-      document.getElementById('loginError').innerText = data.error || 'Erro no login';
+      document.getElementById('result').innerText = data.message || 'Erro ao logar.';
     }
   } catch (err) {
-    console.error('Erro ao conectar no backend:', err);
-    document.getElementById('loginError').innerText = 'Erro na conexão';
+    document.getElementById('result').innerText = 'Erro de conexão com a API.';
   }
 });
