@@ -1,15 +1,20 @@
-// Função para salvar token
-function saveToken(token) {
-  localStorage.setItem('token', token);
-}
+// auth.js
+import bcrypt from 'bcrypt';
+import Usuario from './models/Usuario.js';
+import jwt from 'jsonwebtoken';
 
-// Função para obter token
-function getToken() {
-  return localStorage.getItem('token');
-}
+export async function login(username, password) {
+  const usuario = await Usuario.findOne({ where: { username } });
+  if (!usuario) throw new Error('Usuário não encontrado');
 
-// Função para remover token (logout)
-function logout() {
-  localStorage.removeItem('token');
-  window.location.href = 'index.html';
+  const senhaCorreta = await bcrypt.compare(password, usuario.passwordHash);
+  if (!senhaCorreta) throw new Error('Senha incorreta');
+
+  const token = jwt.sign(
+    { id: usuario.id, username: usuario.username, role: usuario.role },
+    'secreto',
+    { expiresIn: '1h' }
+  );
+
+  return token;
 }
