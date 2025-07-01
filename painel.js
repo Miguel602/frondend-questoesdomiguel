@@ -1,3 +1,13 @@
+const API_BASE_URL = 'https://questoes-do-miguel.onrender.com';
+
+// Função para recuperar o token salvo
+function getToken() {
+  const token = localStorage.getItem('token');
+  console.log('🔑 Token usado:', token);
+  return token;
+}
+
+// Ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
   loadQuestions();
 
@@ -15,8 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadQuestions() {
   try {
     const response = await fetch(`${API_BASE_URL}/questions`, {
-      headers: { Authorization: `Bearer ${getToken()}` }
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
     });
+
+    if (!response.ok) throw new Error('Falha ao buscar questões');
+
     const questions = await response.json();
 
     const container = document.getElementById('questoesList');
@@ -32,7 +47,8 @@ async function loadQuestions() {
       container.appendChild(div);
     });
   } catch (err) {
-    console.error('Erro ao carregar questões:', err);
+    console.error('❌ Erro ao carregar questões:', err);
+    document.getElementById('questoesList').innerText = 'Erro ao carregar questões.';
   }
 }
 
@@ -46,11 +62,13 @@ async function addQuestion() {
   const correta = document.getElementById('correta').value;
 
   try {
+    const token = getToken();
+
     const response = await fetch(`${API_BASE_URL}/questions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${getToken()}`,
+        Authorization: `Bearer ${token}`
       },
       body: JSON.stringify({
         text,
@@ -58,21 +76,22 @@ async function addQuestion() {
         alternativaB,
         alternativaC,
         alternativaD,
-        correta,
-      }),
+        correta
+      })
     });
+
+    const data = await response.json();
 
     if (response.ok) {
       document.getElementById('addError').innerText = '';
       document.getElementById('addQuestionForm').reset();
       loadQuestions();
     } else {
-      const data = await response.json();
-      document.getElementById('addError').innerText = data.error || 'Erro ao adicionar questão';
+      document.getElementById('addError').innerText = data.message || 'Erro ao adicionar questão';
     }
   } catch (err) {
-    console.error('Erro ao adicionar questão:', err);
-    document.getElementById('addError').innerText = 'Erro na conexão';
+    console.error('❌ Erro ao adicionar questão:', err);
+    document.getElementById('addError').innerText = 'Erro na conexão.';
   }
 }
 
@@ -83,7 +102,9 @@ async function deleteQuestion(id) {
   try {
     const response = await fetch(`${API_BASE_URL}/questions/${id}`, {
       method: 'DELETE',
-      headers: { Authorization: `Bearer ${getToken()}` },
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
     });
 
     if (response.ok) {
@@ -92,7 +113,13 @@ async function deleteQuestion(id) {
       alert('Erro ao apagar questão');
     }
   } catch (err) {
-    console.error('Erro ao apagar questão:', err);
+    console.error('❌ Erro ao apagar questão:', err);
     alert('Erro de conexão');
   }
+}
+
+// Logout
+function logout() {
+  localStorage.removeItem('token');
+  window.location.href = 'login.html';
 }
