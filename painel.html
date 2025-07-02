@@ -1,25 +1,89 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Painel de Questões</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo | Questões do Miguel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f8fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #003d4c;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    form input, form textarea, form select, form button {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background: #007a99;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005f73;
+    }
+    .question-item {
+      background: #f0f4f7;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 6px;
+    }
+    .question-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+  </style>
 </head>
 <body>
-  <h1>Questões</h1>
+  <header>
+    <h1>Questões do Miguel - Painel Admin</h1>
+  </header>
+  <main>
+    <h2>Adicionar Nova Questão</h2>
+    <form id="addQuestionForm">
+      <textarea id="questionText" placeholder="Digite o enunciado da questão" required></textarea>
+      <input id="alternativaA" placeholder="Alternativa A" required />
+      <input id="alternativaB" placeholder="Alternativa B" required />
+      <input id="alternativaC" placeholder="Alternativa C" required />
+      <input id="alternativaD" placeholder="Alternativa D" required />
+      <input id="alternativaE" placeholder="Alternativa E" required />
+      <select id="correta" required>
+        <option value="">Alternativa Correta</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+      </select>
+      <button type="submit">Salvar Questão</button>
+      <p id="addError" style="color:red;"></p>
+    </form>
 
-  <form id="addQuestionForm">
-    <textarea id="questionText" placeholder="Enunciado" required></textarea><br>
-    <input type="text" id="alternativaA" placeholder="A" required><br>
-    <input type="text" id="alternativaB" placeholder="B" required><br>
-    <input type="text" id="alternativaC" placeholder="C" required><br>
-    <input type="text" id="alternativaD" placeholder="D" required><br>
-    <input type="text" id="correta" placeholder="Correta (A/B/C/D)" required><br>
-    <button type="submit">Adicionar</button>
-  </form>
-
-  <p id="addError" style="color: red;"></p>
-
-  <div id="questoesList"></div>
+    <h2>Lista de Questões</h2>
+    <div id="questoesList"></div>
+  </main>
 
   <script src="painel.js"></script>
 </body>
