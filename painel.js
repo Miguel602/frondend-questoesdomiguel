@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://questoes-do-miguel.onrender.com';
+const API_BASE_URL = 'https://backendquestoes.onrender.com/';
 
 // Recupera o token salvo no login
 function getToken() {
