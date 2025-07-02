@@ -3,12 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Simulado | Questões do Miguel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: sans-serif;
       padding: 20px;
       max-width: 600px;
       margin: auto;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #1a3e4c;
     }
     .questao {
       margin-bottom: 30px;
@@ -17,22 +22,34 @@
       display: block;
       margin-bottom: 10px;
       cursor: pointer;
-      padding: 8px;
+      padding: 10px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 6px;
+      background-color: #fff;
+      transition: background-color 0.3s ease;
     }
     .alternativa:hover {
       background-color: #f0f0f0;
     }
     .correta {
       background-color: #c8f7c5;
+      font-weight: bold;
     }
     .incorreta {
       background-color: #f7c5c5;
+      font-weight: bold;
     }
     #resultado {
       font-weight: bold;
       margin-top: 10px;
+    }
+    #proximaBtn {
+      padding: 10px 20px;
+      background-color: #1a3e4c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
   </style>
 </head>
